@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сокращение ссылки</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Сокращение ссылки</h1>
+    <form th:action="@{/main}" th:method="POST">
+        <div class="form-group">
+            <label for="longUrl">Введите ссылку:</label>
+            <input type="url" class="form-control" id="longUrl" name="longUrl" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Сократить</button>
+    </form>
+    <div th:if="${shortUrl}">
+        <h2>Сокращенная ссылка:</h2>
+        <a th:href="${shortUrl}" th:text="${shortUrl}"></a>
+    </div>
+</div>
+</body>
+</html>
