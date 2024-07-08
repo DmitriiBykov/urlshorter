@@ -8,6 +8,7 @@ import ru.bykov.urlshorter.repositories.UrlRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,7 +41,7 @@ public class UrlService {
 
     private String makeShorter(String fulllink) {
         Sqids sqids = Sqids.builder().build();
-        return sqids.encode(Arrays.asList((long) Math.abs(fulllink.hashCode())));
+        return sqids.encode(List.of((long) Math.abs(fulllink.hashCode())));
     }
 
     @Autowired
