@@ -7,7 +7,6 @@ import ru.bykov.urlshorter.models.UrlModel;
 import ru.bykov.urlshorter.repositories.UrlRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +22,11 @@ public class UrlService {
         String shortUrl = makeShorter(fullUrl);
         UrlModel urlModel = new UrlModel();
         urlModel.setFullUrl(fullUrl);
-        urlModel.setShortUrl(shortUrl.toString());
+        urlModel.setShortUrl(shortUrl);
         urlModel.setTime(Timestamp.valueOf(LocalDateTime.now()));
         urlRepository.save(urlModel);
         deleteExpired();
-        return shortUrl.toString();
+        return shortUrl;
     }
 
     public String get(String shortlink) {
