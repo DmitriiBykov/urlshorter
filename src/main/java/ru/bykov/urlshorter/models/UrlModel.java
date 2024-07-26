@@ -13,7 +13,7 @@ public class UrlModel {
     private int id;
     @Column(name = "full_url")
     private String fullUrl;
-    @Column(name = "shortUrl")
+    @Column(name = "short_url")
     private String shortUrl;
     @Column(name = "time")
     private Timestamp time;

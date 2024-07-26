@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  urldb:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: urldb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: user1
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    depends_on:
+      - urldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://urldb:5432/urldb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: user1
+  logstash:
+    image: logstash:8.14.3
+    volumes:
+      - ./logstash/config:/usr/share/logstash/config
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    command: logstash -f /usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5000:5000"
+volumes:
+  postgres-data:
